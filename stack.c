@@ -8,8 +8,6 @@ int pop(int stack[max], int *data, int *top);
 int display(int stack[max], int *data, int *top);
 
 
-
-
 int main(){
   int stack[max], data, top=-1, option, n;
   do{
