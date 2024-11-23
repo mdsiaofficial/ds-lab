@@ -1,11 +1,47 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <conio.h>
 #define max 10
 
-int enqueue(int queue[max], int *data, int *front, int *rear);
-int dequeue(int queue[max], int *data, int *front, int *rear);
-int display(int queue[max], int *front, int *rear);
+int enqueue(int queue[max], int *data, int *front, int *rear) {
+    if (*rear == max - 1) {
+        return -1;  // Queue Overflow
+    } else {
+        if (*front == -1) {
+            *front = 0;
+        }
+        *rear = *rear + 1;
+        queue[*rear] = *data;
+        return 1;
+    }
+}
+
+int dequeue(int queue[max], int *data, int *front, int *rear) {
+    if (*front == -1 || *front > *rear) {
+        return -1;  // Queue Underflow
+    } else {
+        *data = queue[*front];
+        *front = *front + 1;
+        if (*front > *rear) {  // Reset front and rear when the queue becomes empty
+            *front = -1;
+            *rear = -1;
+        }
+        return 1;
+    }
+}
+
+int display(int queue[max], int *front, int *rear) {
+    if (*front == -1 || *front > *rear) {
+        printf("\nQueue is empty. Press any key to continue...");
+        getchar();
+    } else {
+        printf("\nQueue is: \n");
+        for (int i = *front; i <= *rear; i++) {
+            printf("%d\n", queue[i]);
+        }
+        printf("\nPress any key to continue...");
+        getchar();
+    }
+}
 
 int main() {
     int queue[max], data, front = -1, rear = -1, option, n;
@@ -48,49 +84,9 @@ int main() {
 
             default:
                 printf("\n\t Invalid option, press any key to continue...");
-                getch();
+                getchar();
         }
     } while (1);
     return 0;
 }
 
-int enqueue(int queue[max], int *data, int *front, int *rear) {
-    if (*rear == max - 1) {
-        return -1;  // Queue Overflow
-    } else {
-        if (*front == -1) {
-            *front = 0;
-        }
-        *rear = *rear + 1;
-        queue[*rear] = *data;
-        return 1;
-    }
-}
-
-int dequeue(int queue[max], int *data, int *front, int *rear) {
-    if (*front == -1 || *front > *rear) {
-        return -1;  // Queue Underflow
-    } else {
-        *data = queue[*front];
-        *front = *front + 1;
-        if (*front > *rear) {  // Reset front and rear when the queue becomes empty
-            *front = -1;
-            *rear = -1;
-        }
-        return 1;
-    }
-}
-
-int display(int queue[max], int *front, int *rear) {
-    if (*front == -1 || *front > *rear) {
-        printf("\nQueue is empty. Press any key to continue...");
-        getch();
-    } else {
-        printf("\nQueue is: \n");
-        for (int i = *front; i <= *rear; i++) {
-            printf("%d\n", queue[i]);
-        }
-        printf("\nPress any key to continue...");
-        getch();
-    }
-}

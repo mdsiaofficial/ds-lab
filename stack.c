@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <conio.h>
 #define max 10
 
 int push(int stack[max], int *data, int *top);
